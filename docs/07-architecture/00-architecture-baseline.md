@@ -20,11 +20,11 @@ updated_at: "2026-11-24"
 - Fiabilité asynchrone : outbox et worker de livraison.
 - Architecture : monolithe modulaire et bounded contexts explicites, sans microservices imposés.
 
-`
+```text
 [Client Web Next.js] -> [API Django / DRF] -> [Domaines LearningHub] -> [PostgreSQL]
                                             |
                                             +-> [Outbox] -> [Worker / Consumers]
-`
+```
 
 ## Règles de dépendance
 
