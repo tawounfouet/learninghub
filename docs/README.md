@@ -12,7 +12,7 @@ updated_at: "2026-11-24"
 
 > **Baseline publique candidate.** Cette page est un document de cadrage. Elle ne prouve ni implémentation, ni validation métier, ni approbation de mise en production.
 
-La documentation de LearningHub reprend les conventions de [ProjectHub](https://github.com/tawounfouet/projecthub/tree/main/docs) avec un contenu propre au LMS. Tous les livrables initiaux sont des **synthèses publiques candidate** de spécifications de travail antérieures. Les textes intégraux d'origine ne sont pas présumés importés ni approuvés.
+La [réconciliation R0/R1](07-architecture/07-r0-r1-source-reconciliation.md) identifie et corrige les écarts documentaires (états, API, contrats, schéma) et conserve visibles les arbitrages ouverts. La [CI documentaire proposée](quality/README.md) vérifie les métadonnées, identifiants et liens locaux.\n\nLa documentation de LearningHub reprend les conventions de [ProjectHub](https://github.com/tawounfouet/projecthub/tree/main/docs) avec un contenu propre au LMS. Tous les livrables initiaux sont des **synthèses publiques candidate** de spécifications de travail antérieures. Les textes intégraux d'origine ne sont pas présumés importés ni approuvés.
 
 ## Navigation
 
