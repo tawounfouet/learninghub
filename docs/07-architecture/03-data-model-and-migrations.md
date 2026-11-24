@@ -1,38 +1,42 @@
 ---
 id: LH-ARCH-DATA-001
-title: "LearningHub - Modèle relationnel et stratégie de migrations"
-version: "0.1.0"
+title: "LearningHub - Modèle relationnel R1 et migrations réconciliés"
+version: "0.2.0"
 status: draft
 classification: public
 created_at: "2026-11-24"
 updated_at: "2026-11-24"
 ---
 
-# LearningHub - Modèle relationnel et stratégie de migrations
+# LearningHub - Modèle relationnel R1 et migrations réconciliés
 
-> **Baseline publique candidate.** Cette page est un document de cadrage. Elle ne prouve ni implémentation, ni validation métier, ni approbation de mise en production.
+> **Synthèse publique R0/R1 - draft.** Les éléments tirés des spécifications de conception sont des contrats candidats, pas des interfaces livrées ni des décisions approuvées. Les originaux restent hors de ce dépôt public.
 
-## Entités candidates R1
+## Référence
 
-| Table conceptuelle | Liens majeurs | Contrainte à détailler |
-|---|---|---|
-| `course` | owner/tenant | Identifiant stable |
-| `course_version` | course | Version unique ; contenu publié protégé |
-| `assessment` | course_version | Policy et version cohérentes |
-| `enrollment` | learner, course_version | Unicité selon scope et cohorte |
-| `access_grant` | enrollment, source | Fenêtre temporelle et révocation |
-| `attempt` | enrollment, assessment | Tentatives et deadlines |
-| `grade_decision` | attempt | Historisation, version et auteur |
-| `completion_record` | enrollment, policy | Provenance de la réussite |
-| `credential` | completion_record | Émission contrôlée |
-| `outbox_event` | agrégat, version | Livraison fiable |
+Sources : `R1_LEARNINGHUB_ENTITY_RELATIONSHIP_DIAGRAM.md` et `R1_LEARNINGHUB_DATABASE_SCHEMA_AND_MIGRATIONS.md` (`PROPOSED`). Le dictionnaire physique R1 décrit **22 tables candidates** et pas seulement les dix entités simplifiées du premier index.
 
-## Stratégie de migration
+## Tables R1 recensées
 
-1. Créer des schémas compatibles, constraints et index adaptés aux requêtes de sécurité.
-2. Migrer données et code en étapes sûres, avec prétests des cas limites.
-3. Vérifier les transitions, les références et les doublons en concurrence.
-4. Prévoir sauvegarde et procédure de retour arrière ; les changements irréversibles nécessitent un plan de correction.
-5. Tester sur données synthétiques multi-tenants.
+| Zone | Tables candidates proposées |
+|---|---|
+| Identity & Tenancy | `lh_organization`, `lh_membership`, `lh_learner_profile` |
+| Catalog & snapshots | `lh_course`, `lh_course_version`, `lh_module_snapshot`, `lh_lesson_snapshot`, `lh_assessment_version`, `lh_question_snapshot` |
+| Enrollment & Access | `lh_enrollment`, `lh_access_grant`, `lh_lesson_progress` |
+| Assessment & evidence | `lh_attempt`, `lh_submission`, `lh_grade_decision` |
+| Completion & Credentials | `lh_completion_policy_snapshot`, `lh_completion_record`, `lh_credential` |
+| Infrastructure & audit | `lh_idempotency_record`, `lh_outbox_event`, `lh_inbox_event`, `lh_audit_decision` |
 
-L'ERD précis, les noms SQL, index et migrations versionnées de la spécification R1 restent à valider avant que cette synthèse serve de code source.
+## Points bloquants avant migrations
+
+- FK tenant-scopées et accès inter-organisation interdits même par référence directe.
+- Unicité d'un Enrollment ouvert, y compris le comportement SQL des valeurs `NULL` de cohorte.
+- Immutabilité et réutilisation contrôlée des CourseVersion et AssessmentVersion.
+- `GradeDecision` historisée, append-only selon modèle retenu.
+- Révision optimiste et clés d'idempotence transactionnelles.
+- Append outbox atomique, inbox et contrôle de réémission.
+- Choix documenté entre filtres + FK, RLS PostgreSQL, ou défense combinée.
+
+Le plan source propose un séquencement `expand -> backfill -> contract` et des tests avec PostgreSQL réel. **Aucune migration n'est déclarée exécutée ici.** Les DDL source restent à revoir avec les arbitrages R0.
+
+Voir [réconciliation](07-r0-r1-source-reconciliation.md).

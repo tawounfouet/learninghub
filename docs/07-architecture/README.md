@@ -1,7 +1,7 @@
 ---
 id: LH-ARCH-INDEX
 title: "LearningHub - Index architecture R0/R1"
-version: "0.1.0"
+version: "0.2.0"
 status: draft
 classification: public
 created_at: "2026-11-24"
@@ -10,16 +10,17 @@ updated_at: "2026-11-24"
 
 # LearningHub - Index architecture R0/R1
 
-> **Baseline publique candidate.** Cette page est un document de cadrage. Elle ne prouve ni implémentation, ni validation métier, ni approbation de mise en production.
+> **Synthèse publique R0/R1 - draft.** Les éléments tirés des spécifications de conception sont des contrats candidats, pas des interfaces livrées ni des décisions approuvées. Les originaux restent hors de ce dépôt public.
 
-| Document | Contenu |
+| Document | Sujet |
 |---|---|
-| [Baseline](00-architecture-baseline.md) | Composants cibles et règles de dépendance |
-| [Machines à états](01-state-machines-and-invariants.md) | Invariants R0 et refus |
-| [Commandes et événements](02-commands-events-errors.md) | Contrats et erreurs R0 |
-| [Modèle de données](03-data-model-and-migrations.md) | ERD, contraintes et migration |
-| [API](04-api-and-event-contracts.md) | Interfaces R1 et compatibilité |
-| [Registre ADR](05-adr-register.md) | Arbitrages proposés |
-| [Plan vertical slice](06-vertical-slice-implementation-plan.md) | Lots et points de contrôle R1 |
+| [Architecture](00-architecture-baseline.md) | Cible Django/DRF, Next.js, PostgreSQL, outbox |
+| [Machines d'état R0](01-state-machines-and-invariants.md) | Sept agrégats et états réconciliés |
+| [Commandes et événements R0](02-commands-events-errors.md) | Types filaires R0 proposés |
+| [Données R1](03-data-model-and-migrations.md) | Dictionnaire des 22 tables candidates |
+| [API R1](04-api-and-event-contracts.md) | Préfixe proposé et 25 routes |
+| [ADR](05-adr-register.md) | Registre public candidat, non encore réconcilié au registre source |
+| [Vertical slice](06-vertical-slice-implementation-plan.md) | Programme de réalisation proposé |
+| [Réconciliation](07-r0-r1-source-reconciliation.md) | 13 écarts identifiés et actions de clôture |
 
-Ces documents sont des **synthèses structurées**. Les longs artefacts R0/R1 originaux figurent au [registre de sources](../00-context/01-source-register.md) et ne sont pas importés tels quels.
+Les documents sources complets sont conservés séparément. Les synthèses corrigées ne sont pas une source normative approuvée tant que les décisions de mise en oeuvre ne sont pas prises.

@@ -1,7 +1,7 @@
 ---
 id: LH-QA-DOC-001
 title: "LearningHub - Checklist de qualité documentaire"
-version: "0.1.0"
+version: "0.2.0"
 status: draft
 classification: public
 created_at: "2026-11-24"
@@ -10,19 +10,24 @@ updated_at: "2026-11-24"
 
 # LearningHub - Checklist de qualité documentaire
 
-> **Baseline publique candidate.** Cette page est un document de cadrage. Elle ne prouve ni implémentation, ni validation métier, ni approbation de mise en production.
+> **Synthèse publique R0/R1 - draft.** Les éléments tirés des spécifications de conception sont des contrats candidats, pas des interfaces livrées ni des décisions approuvées. Les originaux restent hors de ce dépôt public.
 
-## Contrôles à effectuer par PR
+## Contrôles techniques
 
-- [ ] Chaque fichier porte des métadonnées `id`, `title`, `version`, `status`, `classification`, `created_at`, `updated_at`.
-- [ ] Tous les liens relatifs pointent vers un fichier présent.
-- [ ] Aucune image privée ou ressource sous droit tiers n'est insérée sans autorisation.
-- [ ] Aucune donnée personnelle d'apprenant, clé, token ou identifiant d'environnement réel n'apparaît.
-- [ ] Les statuts de livraison, d'acceptation et de tests ne sont pas exagérés.
-- [ ] Les IDs de besoins, décisions et événements ne sont pas silencieusement renumérotés.
-- [ ] Les assertions qui portent sur des tests incluent des liens vers la preuve exécutée.
-- [ ] Les contradictions entre R0 et R1 sont soit résolues par ADR, soit listées comme questions ouvertes.
+- [ ] Les tests synthétiques `python -m unittest discover -s tests -p 'test_docs_quality.py' -v` réussissent.
+- [ ] `python scripts/docs_quality.py --strict` renvoie zéro erreur.
+- [ ] Les frontmatters sont publics, complets et cohérents.
+- [ ] Les cinq registres canoniques conservent leurs identifiants stables.
+- [ ] Tous les liens relatifs sont valides.
+- [ ] Le workflow GitHub Actions de la PR apparaît en succès sur le **SHA courant**.
 
-## Automatisation envisagée
+## Contrôles éditoriaux et métier humains
 
-Linter Markdown, liens internes, validation YAML, recherche de secrets et contrôle des IDs. Ces protections ne sont pas activées par la seule présence du présent fichier.
+- [ ] Les noms de commande et événement sont alignés avec la source normative R0.
+- [ ] Les URLs R1 utilisent le préfixe candidat et indiquent leur statut `PROPOSED`.
+- [ ] Aucune information privée ou personnelle n'a été copiée depuis le corpus de travail.
+- [ ] Les écarts `LH-REC-*` demeurent visibles et ne sont pas déclarés résolus sans décision.
+- [ ] Les exemples ne sont pas présentés comme fonctionnalités ou tests applicatifs effectivement exécutés.
+- [ ] Les exceptions, les droits de réutilisation et les approbations sont vérifiés explicitement.
+
+Le workflow n'a pas de pouvoir d'approbation. Voir [politique de publication](../PUBLICATION-POLICY.md).
